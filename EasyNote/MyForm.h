@@ -18,6 +18,7 @@ namespace EasyNote {
 		MyForm(void)
 		{
 			InitializeComponent();
+			panel1->Hide(); // Indicamos al constructor que por defecto no muestre la venta de terminos y condiciones //
 			//
 			//TODO: agregar código de constructor aquí
 			//
@@ -43,6 +44,10 @@ namespace EasyNote {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::CheckBox^ checkBox1;
 	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Panel^ panel1;
+	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::TextBox^ textBox3;
+	private: System::Windows::Forms::Label^ label4;
 
 	private:
 		/// <summary>
@@ -66,6 +71,11 @@ namespace EasyNote {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -100,6 +110,7 @@ namespace EasyNote {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(210, 26);
 			this->textBox1->TabIndex = 2;
+			this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox1_KeyDown);
 			// 
 			// textBox2
 			// 
@@ -108,6 +119,7 @@ namespace EasyNote {
 			this->textBox2->Size = System::Drawing::Size(210, 26);
 			this->textBox2->TabIndex = 3;
 			this->textBox2->UseSystemPasswordChar = true;
+			this->textBox2->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox2_KeyDown);
 			// 
 			// button1
 			// 
@@ -150,6 +162,7 @@ namespace EasyNote {
 			// 
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
+			this->label3->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->ForeColor = System::Drawing::Color::Black;
@@ -158,6 +171,53 @@ namespace EasyNote {
 			this->label3->Size = System::Drawing::Size(135, 16);
 			this->label3->TabIndex = 7;
 			this->label3->Text = L"Terms and Condicions";
+			this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
+			// 
+			// panel1
+			// 
+			this->panel1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel1.BackgroundImage")));
+			this->panel1->Controls->Add(this->button3);
+			this->panel1->Controls->Add(this->textBox3);
+			this->panel1->Controls->Add(this->label4);
+			this->panel1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->panel1->Location = System::Drawing::Point(0, 0);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(502, 471);
+			this->panel1->TabIndex = 8;
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(320, 389);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(91, 44);
+			this->button3->TabIndex = 5;
+			this->button3->Text = L"OK";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(90, 200);
+			this->textBox3->Multiline = true;
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->ReadOnly = true;
+			this->textBox3->Size = System::Drawing::Size(321, 173);
+			this->textBox3->TabIndex = 1;
+			this->textBox3->Text = L"Las condiciones y terminos de la applicacion son los que me salgan de la punta de"
+				L"l cipote ;)";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->BackColor = System::Drawing::Color::Transparent;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Arial", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->ForeColor = System::Drawing::SystemColors::Control;
+			this->label4->Location = System::Drawing::Point(86, 149);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(189, 22);
+			this->label4->TabIndex = 0;
+			this->label4->Text = L"Terms and Condicion";
 			// 
 			// MyForm
 			// 
@@ -165,6 +225,7 @@ namespace EasyNote {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(502, 471);
+			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->checkBox1);
 			this->Controls->Add(this->button2);
@@ -178,43 +239,89 @@ namespace EasyNote {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MyForm";
 			this->Text = L"EasyNote";
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////	VENTANA DE iNICIO DE SESION ///////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	// Con esta funcion vamos a indicar la funcionalidad del checkBox
+
+	private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos el evento el cual es tener el checkbox en tick //
 	{
-		if (checkBox1->Checked) 
+		if (checkBox1->Checked)  // Aqui aplicamos la condicion de que el checkbox debe estar en check para darle al boton de sign in //
 		{
-			button1->Enabled = true;
+			button1->Enabled = true; // Con este metodo indicamos que si el checkbox esta en check el boton de "Sign in" puede usarse
 		}
-		else
+		else 
 		{
-			button1->Enabled = false;
+			button1->Enabled = false; // Con este metodo indicamos que si el checkbox no esta en check el boton de "Sign in" no puede usarse
 		}
 	}
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) 
+
+	// Con estas funciones siguientes le daremos funcionalidad al los botones de "Sign in" y "Exit"
+
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al pusar el boton "Sign in" debe ejecutar esta condicion //
 	{
-		Application::Exit();
-	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		if (textBox1->Text == "admin")
+		if (textBox1->Text == "admin") // Primera condicion comprueba que los datos metidos en el apartado de "Username" se han correctos //
 		{
-			if (textBox2->Text == "1234") 
+			if (textBox2->Text == "1234")  // Segunda condicion comprueba que la contraseña es correcta // 
 			{
-				Application::Exit();
+				MessageBox::Show("Correct Access", "Sign in Successful!!", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
-			else
+			else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
 			{
-				MessageBox::Show("Incorrect Password","Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show("Incorrect Password","Error", MessageBoxButtons::OK, MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
 			}
 
 		}
-		else 
+		else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
 		{	
-			MessageBox::Show("Incorrect Username", "Error", MessageBoxButtons::OK,MessageBoxIcon::Error);
+			MessageBox::Show("Incorrect Username", "Error", MessageBoxButtons::OK,MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
+		}
+	}
+
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al darle click al boton "Exit" se cierre la app //
+	{
+		Application::Exit(); //Con este metodo se cierra la app
+	}
+
+	// Con estas funciones siguientes lo que indicamos es cuando puede aparecer la ventana de "Terms and Condicion"
+
+	private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que cuando se pulse el label de "Terms and Condicion" se muestre la ventana de Terminos //
+	{
+		panel1->Show(); //Este es el metodo que nos muestra la ventana
+	}
+
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al pulsar al boton "OK" se deje de mostrar la ventana de terminos
+	{
+		panel1->Hide(); //Este es el metodo que nos oculta la ventana
+	}
+
+	// Con las dos funciones siguientes lo que indicamos es que al pulsar "enter" en nuestro teclado se desplase nuestro indicador de texto
+
+		   //admin 
+	private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) // Esta es la funcion para el primer textbox de "Username"
+	{
+		if (e->KeyValue == (int)Keys::Enter)  // Con esta condicion lo que indicamos es que al pulsar enter nos desplace al segundo textbox
+		{
+			textBox2->Focus(); // Aqui indicamos el metodo
+		}
+	}
+		//password
+	private: System::Void textBox2_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) // Esta es la funcion de desplazo del textbox de "Password"
+	{
+		if (e->KeyValue == (int)Keys::Enter) //Con esta segunda funcion indicamos que al pulsar enter nos desplace el selector al boton de "Sign in" y ademas que lo pulse automaticamente
+		{
+			button1->Focus(); // Este metodo indica el desplazamiento
+			button1->PerformClick(); // Este metodo indica el autoclick
 		}
 	}
 };
