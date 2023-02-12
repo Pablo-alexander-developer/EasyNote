@@ -13,8 +13,8 @@ namespace EasyNote {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-	using namespace System::IO;  //filee reading and writing
-	using namespace System::Text; // Text property
+	using namespace System::IO;  //libreria para escribir y leer texto en archivos
+	using namespace System::Text; // libreria para propiedades de texto
 
 	/// <summary>
 	/// Resumen de MyPrincipalForm
@@ -189,14 +189,28 @@ namespace EasyNote {
 
 	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos evento de pulsar el boton "Save"
 	{
-		String^ fileName; 
-		String^ path = L"c:\\text.txt";
+		Stream^ myStream;
+		SaveFileDialog^ saveFileDialog1 = gcnew SaveFileDialog();
 
-		FileStream^ fs = gcnew FileStream(path,FileMode::CreateNew,FileAccess::Write);
-		StreamWriter^ sw = gcnew StreamWriter(fs);
-		
-		sw->Write(textBox1->Text);
-		sw->Close(); //Aqui cerramos el evento
+		saveFileDialog1->InitialDirectory = "c:\\";
+		saveFileDialog1->Filter = "txt files (*.txt)|*.txt|All files(*.*)|*.*";
+		saveFileDialog1->FilterIndex = 2;
+		saveFileDialog1->RestoreDirectory = true;
+
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			if ((myStream = saveFileDialog1->OpenFile()) != nullptr) 
+			{
+				StreamWriter^ sw = gcnew StreamWriter(myStream);
+				sw->Write(textBox1->Text);
+				sw->Close();
+
+				myStream->Close();
+			}
+
+		}
+
+		//FileStream^ fs = gcnew FileStream(path,FileMode::CreateNew,FileAccess::Write);
 
 	}
 
