@@ -23,11 +23,12 @@ namespace EasyNote {
 	public:
 		MyForm(void)
 		{
-			InitializeComponent();
-			panel1->Hide(); // Indicamos al constructor que por defecto no muestre la venta de terminos y condiciones //
 			//
 			//TODO: agregar código de constructor aquí
 			//
+
+			InitializeComponent();
+			panel1->Hide(); // Indicamos al constructor que por defecto no muestre la venta de terminos y condiciones //
 		}
 
 	protected:
