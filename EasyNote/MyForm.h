@@ -210,8 +210,7 @@ namespace EasyNote {
 			this->textBox3->ReadOnly = true;
 			this->textBox3->Size = System::Drawing::Size(321, 173);
 			this->textBox3->TabIndex = 1;
-			this->textBox3->Text = L"Las condiciones y terminos de la applicacion son los que me salgan de la punta de"
-				L"l cipote ;)";
+			this->textBox3->Text = resources->GetString(L"textBox3.Text");
 			// 
 			// label4
 			// 
@@ -243,6 +242,7 @@ namespace EasyNote {
 			this->Controls->Add(this->label1);
 			this->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MyForm";
 			this->Text = L"EasyNote";
@@ -289,13 +289,13 @@ namespace EasyNote {
 			}
 			else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
 			{
-				MessageBox::Show("Incorrect Password","Error", MessageBoxButtons::OK, MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
+				MessageBox::Show("Incorrect Username or Password","Error", MessageBoxButtons::OK, MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
 			}
 
 		}
 		else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
 		{	
-			MessageBox::Show("Incorrect Username", "Error", MessageBoxButtons::OK,MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
+			MessageBox::Show("Incorrect Username or Password ", "Error", MessageBoxButtons::OK,MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
 		}
 	}
 
