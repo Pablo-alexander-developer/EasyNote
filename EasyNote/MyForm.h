@@ -136,7 +136,7 @@ namespace EasyNote {
 			this->button1->TabIndex = 4;
 			this->button1->Text = L"Sign in";
 			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::buttonSignIn_Click);
 			// 
 			// button2
 			// 
@@ -146,7 +146,7 @@ namespace EasyNote {
 			this->button2->TabIndex = 5;
 			this->button2->Text = L"Exit";
 			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::buttonExit_Click);
 			// 
 			// checkBox1
 			// 
@@ -275,34 +275,52 @@ namespace EasyNote {
 
 	// Con estas funciones siguientes le daremos funcionalidad al los botones de "Sign in" y "Exit"
 
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al pusar el boton "Sign in" debe ejecutar esta condicion //
+	///////////////////////////////
+	/////// SIGN IN BUTTON/////////
+	///////////////////////////////
+
+	private: System::Void buttonSignIn_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al pusar el boton "Sign in" debe ejecutar esta condicion //
 	{
-		if (textBox1->Text == "admin") // Primera condicion comprueba que los datos metidos en el apartado de "Username" se han correctos //
-		{
-			if (textBox2->Text == "1234")  // Segunda condicion comprueba que la contraseña es correcta // 
-			{
-				MyPrincipalForm^ myprincipalform = gcnew MyPrincipalForm; //Aqui creamos un Objeto a partir de la clase que llamamos al principio del codigo, que crea una nueva ventanta 
-
-				myprincipalform->Show(); // Aqui indicamos al objeto creado que muestre la ventana
-
-				MyForm::Hide(); // Aqui indicamos que oculte la ventana de "Sign in"
-			}
-			else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
-			{
-				MessageBox::Show("Incorrect Username or Password","Error", MessageBoxButtons::OK, MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
-			}
-
-		}
-		else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
-		{	
-			MessageBox::Show("Incorrect Username or Password ", "Error", MessageBoxButtons::OK,MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
-		}
+		SignInFunction();
 	}
 
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al darle click al boton "Exit" se cierre la app //
+		   void SignInFunction()
+		   {
+			   if (textBox1->Text == "admin") // Primera condicion comprueba que los datos metidos en el apartado de "Username" se han correctos //
+			   {
+				   if (textBox2->Text == "1234")  // Segunda condicion comprueba que la contraseña es correcta // 
+				   {
+					   MyPrincipalForm^ myprincipalform = gcnew MyPrincipalForm; //Aqui creamos un Objeto a partir de la clase que llamamos al principio del codigo, que crea una nueva ventanta 
+
+					   myprincipalform->Show(); // Aqui indicamos al objeto creado que muestre la ventana
+
+					   MyForm::Hide(); // Aqui indicamos que oculte la ventana de "Sign in"
+				   }
+				   else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
+				   {
+					   MessageBox::Show("Incorrect Username or Password", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
+				   }
+
+			   }
+			   else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
+			   {
+				   MessageBox::Show("Incorrect Username or Password ", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error); // Aqui indicamos que salga una ventana pequeña para mostrar el error
+			   }
+		   }
+
+	///////////////////////////////
+	/////// EXIT BUTTON ///////////
+	///////////////////////////////
+
+	private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) // Aqui indicamos que al darle click al boton "Exit" se cierre la app //
 	{
-		Application::Exit(); //Con este metodo se cierra la app
+		ExitFunction();
 	}
+
+		   void ExitFunction()
+		   {
+			   Application::Exit(); //Con este metodo se cierra la app
+		   }
 
 	// Con estas funciones siguientes lo que indicamos es cuando puede aparecer la ventana de "Terms and Condicion"
 
