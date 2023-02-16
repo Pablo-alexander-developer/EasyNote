@@ -15,6 +15,7 @@ namespace EasyNote {
 	using namespace System::Drawing;
 	using namespace System::IO;  //libreria para escribir y leer texto en archivos
 	using namespace System::Text; // libreria para propiedades de texto
+	using namespace System::Speech::Synthesis;
 
 	/// <summary>
 	/// Resumen de MyPrincipalForm
@@ -98,6 +99,10 @@ namespace EasyNote {
 	private: System::Windows::Forms::ToolStripMenuItem^ pasteToolStripMenuItem1;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator7;
 	private: System::Windows::Forms::ToolStripMenuItem^ selectAllToolStripMenuItem1;
+	private: System::Windows::Forms::ToolStripMenuItem^ toolsToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ voiceToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ calculatorToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripButton^ toolStripButton1;
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -138,6 +143,9 @@ namespace EasyNote {
 			this->boldToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->underlineToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->letterColorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->voiceToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->calculatorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ayudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->acercaDeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -165,11 +173,12 @@ namespace EasyNote {
 			this->toolStripButtonFONTBOLD = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripButtonCOLORFONT = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator5 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->menuStrip1->SuspendLayout();
 			this->contextMenuStrip1->SuspendLayout();
 			this->toolStripContainer1->BottomToolStripPanel->SuspendLayout();
 			this->toolStripContainer1->ContentPanel->SuspendLayout();
-			this->toolStripContainer1->TopToolStripPanel->SuspendLayout();
+			this->toolStripContainer1->LeftToolStripPanel->SuspendLayout();
 			this->toolStripContainer1->SuspendLayout();
 			this->statusStrip1->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
@@ -178,9 +187,10 @@ namespace EasyNote {
 			// menuStrip1
 			// 
 			this->menuStrip1->BackColor = System::Drawing::SystemColors::Control;
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+			this->menuStrip1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"menuStrip1.BackgroundImage")));
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
 				this->fileToolStripMenuItem,
-					this->editToolStripMenuItem, this->formatToolStripMenuItem, this->helpToolStripMenuItem
+					this->editToolStripMenuItem, this->formatToolStripMenuItem, this->toolsToolStripMenuItem, this->helpToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -203,7 +213,7 @@ namespace EasyNote {
 			this->newToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"newToolStripMenuItem.Image")));
 			this->newToolStripMenuItem->Name = L"newToolStripMenuItem";
 			this->newToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::N));
-			this->newToolStripMenuItem->Size = System::Drawing::Size(146, 22);
+			this->newToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->newToolStripMenuItem->Text = L"New";
 			this->newToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::newToolStripMenuItem_Click);
 			// 
@@ -212,7 +222,7 @@ namespace EasyNote {
 			this->saveToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"saveToolStripMenuItem.Image")));
 			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
 			this->saveToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::G));
-			this->saveToolStripMenuItem->Size = System::Drawing::Size(146, 22);
+			this->saveToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->saveToolStripMenuItem->Text = L"Save";
 			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::saveToolStripMenuItem_Click);
 			// 
@@ -221,7 +231,7 @@ namespace EasyNote {
 			this->openToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"openToolStripMenuItem.Image")));
 			this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
 			this->openToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::O));
-			this->openToolStripMenuItem->Size = System::Drawing::Size(146, 22);
+			this->openToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->openToolStripMenuItem->Text = L"Open";
 			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::openToolStripMenuItem_Click);
 			// 
@@ -229,7 +239,7 @@ namespace EasyNote {
 			// 
 			this->closeToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"closeToolStripMenuItem.Image")));
 			this->closeToolStripMenuItem->Name = L"closeToolStripMenuItem";
-			this->closeToolStripMenuItem->Size = System::Drawing::Size(146, 22);
+			this->closeToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->closeToolStripMenuItem->Text = L"Close";
 			this->closeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::closeToolStripMenuItem_Click);
 			// 
@@ -249,21 +259,21 @@ namespace EasyNote {
 			this->undoToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"undoToolStripMenuItem.Image")));
 			this->undoToolStripMenuItem->Name = L"undoToolStripMenuItem";
 			this->undoToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::Z));
-			this->undoToolStripMenuItem->Size = System::Drawing::Size(164, 22);
+			this->undoToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->undoToolStripMenuItem->Text = L"Undo";
 			this->undoToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::undoToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this->toolStripSeparator1->Name = L"toolStripSeparator1";
-			this->toolStripSeparator1->Size = System::Drawing::Size(161, 6);
+			this->toolStripSeparator1->Size = System::Drawing::Size(177, 6);
 			// 
 			// cutToolStripMenuItem
 			// 
 			this->cutToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cutToolStripMenuItem.Image")));
 			this->cutToolStripMenuItem->Name = L"cutToolStripMenuItem";
 			this->cutToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::X));
-			this->cutToolStripMenuItem->Size = System::Drawing::Size(164, 22);
+			this->cutToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->cutToolStripMenuItem->Text = L"Cut";
 			this->cutToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::cutToolStripMenuItem_Click);
 			// 
@@ -272,7 +282,7 @@ namespace EasyNote {
 			this->copyToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"copyToolStripMenuItem.Image")));
 			this->copyToolStripMenuItem->Name = L"copyToolStripMenuItem";
 			this->copyToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::C));
-			this->copyToolStripMenuItem->Size = System::Drawing::Size(164, 22);
+			this->copyToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->copyToolStripMenuItem->Text = L"Copy";
 			this->copyToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::copyToolStripMenuItem_Click);
 			// 
@@ -281,21 +291,21 @@ namespace EasyNote {
 			this->pasteToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pasteToolStripMenuItem.Image")));
 			this->pasteToolStripMenuItem->Name = L"pasteToolStripMenuItem";
 			this->pasteToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::V));
-			this->pasteToolStripMenuItem->Size = System::Drawing::Size(164, 22);
+			this->pasteToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->pasteToolStripMenuItem->Text = L"Paste";
 			this->pasteToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::pasteToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
 			this->toolStripSeparator2->Name = L"toolStripSeparator2";
-			this->toolStripSeparator2->Size = System::Drawing::Size(161, 6);
+			this->toolStripSeparator2->Size = System::Drawing::Size(177, 6);
 			// 
 			// selectAllToolStripMenuItem
 			// 
 			this->selectAllToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"selectAllToolStripMenuItem.Image")));
 			this->selectAllToolStripMenuItem->Name = L"selectAllToolStripMenuItem";
 			this->selectAllToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::A));
-			this->selectAllToolStripMenuItem->Size = System::Drawing::Size(164, 22);
+			this->selectAllToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->selectAllToolStripMenuItem->Text = L"Select All";
 			this->selectAllToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::selectAllToolStripMenuItem_Click);
 			// 
@@ -317,7 +327,7 @@ namespace EasyNote {
 			});
 			this->fontToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"fontToolStripMenuItem.Image")));
 			this->fontToolStripMenuItem->Name = L"fontToolStripMenuItem";
-			this->fontToolStripMenuItem->Size = System::Drawing::Size(136, 22);
+			this->fontToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->fontToolStripMenuItem->Text = L"Font";
 			this->fontToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::fontToolStripMenuItem_Click);
 			// 
@@ -346,9 +356,34 @@ namespace EasyNote {
 			// 
 			this->letterColorToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"letterColorToolStripMenuItem.Image")));
 			this->letterColorToolStripMenuItem->Name = L"letterColorToolStripMenuItem";
-			this->letterColorToolStripMenuItem->Size = System::Drawing::Size(136, 22);
+			this->letterColorToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->letterColorToolStripMenuItem->Text = L"Letter Color";
 			this->letterColorToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::letterColorToolStripMenuItem_Click);
+			// 
+			// toolsToolStripMenuItem
+			// 
+			this->toolsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->voiceToolStripMenuItem,
+					this->calculatorToolStripMenuItem
+			});
+			this->toolsToolStripMenuItem->Name = L"toolsToolStripMenuItem";
+			this->toolsToolStripMenuItem->Size = System::Drawing::Size(46, 20);
+			this->toolsToolStripMenuItem->Text = L"Tools";
+			// 
+			// voiceToolStripMenuItem
+			// 
+			this->voiceToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"voiceToolStripMenuItem.Image")));
+			this->voiceToolStripMenuItem->Name = L"voiceToolStripMenuItem";
+			this->voiceToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->voiceToolStripMenuItem->Text = L"Text Voice";
+			this->voiceToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::voiceToolStripMenuItem_Click);
+			// 
+			// calculatorToolStripMenuItem
+			// 
+			this->calculatorToolStripMenuItem->Name = L"calculatorToolStripMenuItem";
+			this->calculatorToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->calculatorToolStripMenuItem->Text = L"Calculator";
+			this->calculatorToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::calculatorToolStripMenuItem_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -364,7 +399,7 @@ namespace EasyNote {
 			// 
 			this->ayudaToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ayudaToolStripMenuItem.Image")));
 			this->ayudaToolStripMenuItem->Name = L"ayudaToolStripMenuItem";
-			this->ayudaToolStripMenuItem->Size = System::Drawing::Size(137, 22);
+			this->ayudaToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->ayudaToolStripMenuItem->Text = L"Ask for help";
 			this->ayudaToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::ayudaToolStripMenuItem_Click);
 			// 
@@ -372,7 +407,7 @@ namespace EasyNote {
 			// 
 			this->acercaDeToolStripMenuItem->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"acercaDeToolStripMenuItem.Image")));
 			this->acercaDeToolStripMenuItem->Name = L"acercaDeToolStripMenuItem";
-			this->acercaDeToolStripMenuItem->Size = System::Drawing::Size(137, 22);
+			this->acercaDeToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->acercaDeToolStripMenuItem->Text = L"About";
 			this->acercaDeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyPrincipalForm::acercaDeToolStripMenuItem_Click);
 			// 
@@ -384,7 +419,7 @@ namespace EasyNote {
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Both;
-			this->textBox1->Size = System::Drawing::Size(749, 571);
+			this->textBox1->Size = System::Drawing::Size(725, 596);
 			this->textBox1->TabIndex = 1;
 			// 
 			// contextMenuStrip1
@@ -457,19 +492,20 @@ namespace EasyNote {
 			// toolStripContainer1.ContentPanel
 			// 
 			this->toolStripContainer1->ContentPanel->Controls->Add(this->textBox1);
-			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(749, 571);
+			this->toolStripContainer1->ContentPanel->Size = System::Drawing::Size(725, 596);
 			this->toolStripContainer1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->toolStripContainer1->LeftToolStripPanelVisible = false;
+			// 
+			// toolStripContainer1.LeftToolStripPanel
+			// 
+			this->toolStripContainer1->LeftToolStripPanel->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->toolStripContainer1->LeftToolStripPanel->Controls->Add(this->toolStrip1);
 			this->toolStripContainer1->Location = System::Drawing::Point(0, 24);
 			this->toolStripContainer1->Name = L"toolStripContainer1";
 			this->toolStripContainer1->RightToolStripPanelVisible = false;
 			this->toolStripContainer1->Size = System::Drawing::Size(749, 618);
 			this->toolStripContainer1->TabIndex = 2;
 			this->toolStripContainer1->Text = L"toolStripContainer1";
-			// 
-			// toolStripContainer1.TopToolStripPanel
-			// 
-			this->toolStripContainer1->TopToolStripPanel->Controls->Add(this->toolStrip1);
+			this->toolStripContainer1->TopToolStripPanelVisible = false;
 			// 
 			// statusStrip1
 			// 
@@ -487,15 +523,17 @@ namespace EasyNote {
 			// 
 			// toolStrip1
 			// 
+			this->toolStrip1->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->toolStrip1->Dock = System::Windows::Forms::DockStyle::None;
-			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(11) {
+			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(12) {
 				this->toolStripButtonSAVE,
 					this->toolStripButtonOPEN, this->toolStripSeparator3, this->toolStripButtonSELECT, this->toolStripButtonUNDO, this->toolStripButtonCUT,
-					this->toolStripSeparator4, this->toolStripButtonFONTNORMAL, this->toolStripButtonFONTBOLD, this->toolStripButtonCOLORFONT, this->toolStripSeparator5
+					this->toolStripSeparator4, this->toolStripButtonFONTNORMAL, this->toolStripButtonFONTBOLD, this->toolStripButtonCOLORFONT, this->toolStripSeparator5,
+					this->toolStripButton1
 			});
-			this->toolStrip1->Location = System::Drawing::Point(3, 0);
+			this->toolStrip1->Location = System::Drawing::Point(0, 3);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(214, 25);
+			this->toolStrip1->Size = System::Drawing::Size(24, 236);
 			this->toolStrip1->TabIndex = 0;
 			// 
 			// toolStripButtonSAVE
@@ -504,7 +542,7 @@ namespace EasyNote {
 			this->toolStripButtonSAVE->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonSAVE.Image")));
 			this->toolStripButtonSAVE->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonSAVE->Name = L"toolStripButtonSAVE";
-			this->toolStripButtonSAVE->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonSAVE->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonSAVE->Text = L"toolStripButton1";
 			this->toolStripButtonSAVE->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonSAVE_Click);
 			// 
@@ -514,14 +552,14 @@ namespace EasyNote {
 			this->toolStripButtonOPEN->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonOPEN.Image")));
 			this->toolStripButtonOPEN->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonOPEN->Name = L"toolStripButtonOPEN";
-			this->toolStripButtonOPEN->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonOPEN->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonOPEN->Text = L"toolStripButton2";
 			this->toolStripButtonOPEN->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonOPEN_Click);
 			// 
 			// toolStripSeparator3
 			// 
 			this->toolStripSeparator3->Name = L"toolStripSeparator3";
-			this->toolStripSeparator3->Size = System::Drawing::Size(6, 25);
+			this->toolStripSeparator3->Size = System::Drawing::Size(22, 6);
 			// 
 			// toolStripButtonSELECT
 			// 
@@ -529,7 +567,7 @@ namespace EasyNote {
 			this->toolStripButtonSELECT->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonSELECT.Image")));
 			this->toolStripButtonSELECT->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonSELECT->Name = L"toolStripButtonSELECT";
-			this->toolStripButtonSELECT->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonSELECT->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonSELECT->Text = L"toolStripButton3";
 			this->toolStripButtonSELECT->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonSELECT_Click);
 			// 
@@ -539,7 +577,7 @@ namespace EasyNote {
 			this->toolStripButtonUNDO->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonUNDO.Image")));
 			this->toolStripButtonUNDO->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonUNDO->Name = L"toolStripButtonUNDO";
-			this->toolStripButtonUNDO->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonUNDO->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonUNDO->Text = L"toolStripButton4";
 			this->toolStripButtonUNDO->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonUNDO_Click);
 			// 
@@ -549,14 +587,14 @@ namespace EasyNote {
 			this->toolStripButtonCUT->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonCUT.Image")));
 			this->toolStripButtonCUT->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonCUT->Name = L"toolStripButtonCUT";
-			this->toolStripButtonCUT->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonCUT->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonCUT->Text = L"toolStripButton5";
 			this->toolStripButtonCUT->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonCUT_Click);
 			// 
 			// toolStripSeparator4
 			// 
 			this->toolStripSeparator4->Name = L"toolStripSeparator4";
-			this->toolStripSeparator4->Size = System::Drawing::Size(6, 25);
+			this->toolStripSeparator4->Size = System::Drawing::Size(22, 6);
 			// 
 			// toolStripButtonFONTNORMAL
 			// 
@@ -564,17 +602,18 @@ namespace EasyNote {
 			this->toolStripButtonFONTNORMAL->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonFONTNORMAL.Image")));
 			this->toolStripButtonFONTNORMAL->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonFONTNORMAL->Name = L"toolStripButtonFONTNORMAL";
-			this->toolStripButtonFONTNORMAL->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonFONTNORMAL->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonFONTNORMAL->Text = L"toolStripButton6";
 			this->toolStripButtonFONTNORMAL->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonFONTNORMAL_Click);
 			// 
 			// toolStripButtonFONTBOLD
 			// 
+			this->toolStripButtonFONTBOLD->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->toolStripButtonFONTBOLD->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
 			this->toolStripButtonFONTBOLD->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonFONTBOLD.Image")));
 			this->toolStripButtonFONTBOLD->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonFONTBOLD->Name = L"toolStripButtonFONTBOLD";
-			this->toolStripButtonFONTBOLD->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonFONTBOLD->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonFONTBOLD->Text = L"toolStripButton7";
 			this->toolStripButtonFONTBOLD->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonFONTBOLD_Click);
 			// 
@@ -584,14 +623,24 @@ namespace EasyNote {
 			this->toolStripButtonCOLORFONT->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonCOLORFONT.Image")));
 			this->toolStripButtonCOLORFONT->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonCOLORFONT->Name = L"toolStripButtonCOLORFONT";
-			this->toolStripButtonCOLORFONT->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonCOLORFONT->Size = System::Drawing::Size(22, 20);
 			this->toolStripButtonCOLORFONT->Text = L"toolStripButton1";
 			this->toolStripButtonCOLORFONT->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButtonCOLORFONT_Click);
 			// 
 			// toolStripSeparator5
 			// 
 			this->toolStripSeparator5->Name = L"toolStripSeparator5";
-			this->toolStripSeparator5->Size = System::Drawing::Size(6, 25);
+			this->toolStripSeparator5->Size = System::Drawing::Size(22, 6);
+			// 
+			// toolStripButton1
+			// 
+			this->toolStripButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
+			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButton1->Name = L"toolStripButton1";
+			this->toolStripButton1->Size = System::Drawing::Size(22, 20);
+			this->toolStripButton1->Text = L"toolStripButton1";
+			this->toolStripButton1->Click += gcnew System::EventHandler(this, &MyPrincipalForm::toolStripButton1_Click);
 			// 
 			// MyPrincipalForm
 			// 
@@ -613,8 +662,8 @@ namespace EasyNote {
 			this->toolStripContainer1->BottomToolStripPanel->PerformLayout();
 			this->toolStripContainer1->ContentPanel->ResumeLayout(false);
 			this->toolStripContainer1->ContentPanel->PerformLayout();
-			this->toolStripContainer1->TopToolStripPanel->ResumeLayout(false);
-			this->toolStripContainer1->TopToolStripPanel->PerformLayout();
+			this->toolStripContainer1->LeftToolStripPanel->ResumeLayout(false);
+			this->toolStripContainer1->LeftToolStripPanel->PerformLayout();
 			this->toolStripContainer1->ResumeLayout(false);
 			this->toolStripContainer1->PerformLayout();
 			this->statusStrip1->ResumeLayout(false);
@@ -865,6 +914,38 @@ namespace EasyNote {
 		   }
 
 	/////////////////////
+    ///// TOOLS /////////
+    /////////////////////
+
+	// TEXT VOICE SUB-BOTON //
+
+	private: System::Void voiceToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		TextVoiceFunction();
+	}
+
+		   void TextVoiceFunction()
+		   {
+			   if (textBox1->Text == "")
+			   {
+				   MessageBox::Show("Please Enter Text", "Empty Text", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			   }
+			   else
+			   {
+				   SpeechSynthesizer^ speechSynthesizer = gcnew SpeechSynthesizer();
+
+				   speechSynthesizer->Speak(textBox1->Text);
+			   }
+		   }
+
+	// CALCULATOR SUB-BOTON //
+
+	private: System::Void calculatorToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+
+	}
+
+	/////////////////////
 	///// HELP //////////
 	/////////////////////
 	
@@ -944,6 +1025,13 @@ namespace EasyNote {
 		ColorFontFunction();
 	}
 
+	// ICO TEXTVOICE //
+
+	private: System::Void toolStripButton1_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		TextVoiceFunction();
+    }
+
 	///////////////////////////////////
 	////////// STRIPMENU /////////////
 	/////////////////////////////////
@@ -982,5 +1070,7 @@ namespace EasyNote {
 	{
 		SelectAllFunction();
 	}
+
+
 };
 }
