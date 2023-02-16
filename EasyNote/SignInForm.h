@@ -4,7 +4,7 @@
 
 
 #pragma once
-#include "MyPrincipalForm.h" // Aqui llamamos al codigo de la ventana principal de nuestra app
+#include "NotepadForm.h" // Aqui llamamos al codigo de la ventana principal de nuestra app
 
 namespace EasyNote {
 
@@ -18,10 +18,10 @@ namespace EasyNote {
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
-	public ref class MyForm : public System::Windows::Forms::Form
+	public ref class SignInForm : public System::Windows::Forms::Form
 	{
 	public:
-		MyForm(void)
+		SignInForm(void)
 		{
 			//
 			//TODO: agregar código de constructor aquí
@@ -35,7 +35,7 @@ namespace EasyNote {
 		/// <summary>
 		/// Limpiar los recursos que se estén usando.
 		/// </summary>
-		~MyForm()
+		~SignInForm()
 		{
 			if (components)
 			{
@@ -69,7 +69,7 @@ namespace EasyNote {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(SignInForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -117,7 +117,7 @@ namespace EasyNote {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(210, 26);
 			this->textBox1->TabIndex = 2;
-			this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox1_KeyDown);
+			this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &SignInForm::textBox1_KeyDown);
 			// 
 			// textBox2
 			// 
@@ -126,7 +126,7 @@ namespace EasyNote {
 			this->textBox2->Size = System::Drawing::Size(210, 26);
 			this->textBox2->TabIndex = 3;
 			this->textBox2->UseSystemPasswordChar = true;
-			this->textBox2->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox2_KeyDown);
+			this->textBox2->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &SignInForm::textBox2_KeyDown);
 			// 
 			// button1
 			// 
@@ -136,7 +136,7 @@ namespace EasyNote {
 			this->button1->TabIndex = 4;
 			this->button1->Text = L"Sign in";
 			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::buttonSignIn_Click);
+			this->button1->Click += gcnew System::EventHandler(this, &SignInForm::buttonSignIn_Click);
 			// 
 			// button2
 			// 
@@ -146,7 +146,7 @@ namespace EasyNote {
 			this->button2->TabIndex = 5;
 			this->button2->Text = L"Exit";
 			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::buttonExit_Click);
+			this->button2->Click += gcnew System::EventHandler(this, &SignInForm::buttonExit_Click);
 			// 
 			// checkBox1
 			// 
@@ -163,7 +163,7 @@ namespace EasyNote {
 			this->checkBox1->TabIndex = 6;
 			this->checkBox1->Text = L"I agree to the";
 			this->checkBox1->UseVisualStyleBackColor = false;
-			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox1_CheckedChanged);
+			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &SignInForm::checkBox1_CheckedChanged);
 			// 
 			// label3
 			// 
@@ -178,7 +178,7 @@ namespace EasyNote {
 			this->label3->Size = System::Drawing::Size(135, 16);
 			this->label3->TabIndex = 7;
 			this->label3->Text = L"Terms and Condicions";
-			this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
+			this->label3->Click += gcnew System::EventHandler(this, &SignInForm::label3_Click);
 			// 
 			// panel1
 			// 
@@ -200,7 +200,7 @@ namespace EasyNote {
 			this->button3->TabIndex = 5;
 			this->button3->Text = L"OK";
 			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			this->button3->Click += gcnew System::EventHandler(this, &SignInForm::button3_Click);
 			// 
 			// textBox3
 			// 
@@ -290,11 +290,11 @@ namespace EasyNote {
 			   {
 				   if (textBox2->Text == "1234")  // Segunda condicion comprueba que la contraseña es correcta // 
 				   {
-					   MyPrincipalForm^ myprincipalform = gcnew MyPrincipalForm; //Aqui creamos un Objeto a partir de la clase que llamamos al principio del codigo, que crea una nueva ventanta 
+					   NotepadForm^ notepadform = gcnew NotepadForm; //Aqui creamos un Objeto a partir de la clase que llamamos al principio del codigo, que crea una nueva ventanta 
 
-					   myprincipalform->Show(); // Aqui indicamos al objeto creado que muestre la ventana
+					   notepadform->Show(); // Aqui indicamos al objeto creado que muestre la ventana
 
-					   MyForm::Hide(); // Aqui indicamos que oculte la ventana de "Sign in"
+					   SignInForm::Hide(); // Aqui indicamos que oculte la ventana de "Sign in"
 				   }
 				   else // Aqui nos indica que si la contraseña no es correcta saldra una ventana con un error //
 				   {

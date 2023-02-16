@@ -122,23 +122,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyForm.cpp" />
-    <ClCompile Include="MyPrincipalForm.cpp" />
+    <ClCompile Include="SignInForm.cpp" />
+    <ClCompile Include="NotepadForm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="SignInForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="MyPrincipalForm.h">
+    <ClInclude Include="NotepadForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <DependentUpon>MyForm.h</DependentUpon>
+    <EmbeddedResource Include="SignInForm.resx">
+      <DependentUpon>SignInForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyPrincipalForm.resx">
-      <DependentUpon>MyPrincipalForm.h</DependentUpon>
+    <EmbeddedResource Include="NotepadForm.resx">
+      <DependentUpon>NotepadForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

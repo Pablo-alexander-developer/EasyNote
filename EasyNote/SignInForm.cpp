@@ -1,4 +1,4 @@
-#include "MyForm.h"
+#include "SignInForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -7,6 +7,6 @@ using namespace System::Windows::Forms;
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	EasyNote::MyForm form;
+	EasyNote::SignInForm form;
 	Application::Run(% form);
 }
