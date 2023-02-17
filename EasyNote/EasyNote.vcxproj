@@ -122,10 +122,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CalculatorForm.cpp" />
     <ClCompile Include="SignInForm.cpp" />
     <ClCompile Include="NotepadForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CalculatorForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SignInForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -134,6 +138,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CalculatorForm.resx">
+      <DependentUpon>CalculatorForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SignInForm.resx">
       <DependentUpon>SignInForm.h</DependentUpon>
     </EmbeddedResource>
