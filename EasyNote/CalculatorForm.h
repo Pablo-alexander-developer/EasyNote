@@ -16,6 +16,8 @@ namespace EasyNote {
 	/// <summary>
 	/// Resumen de CalculatorForm
 	/// </summary>
+	/// 
+
 	public ref class CalculatorForm : public System::Windows::Forms::Form
 	{
 	public:
@@ -536,32 +538,46 @@ namespace EasyNote {
 
 	}
 
+	//FUNCION DE ASIGNACION
+	
+	Double FirtsNumber, SecondNumber, Answer;
+	String^ operaTor;
+
+	void CalculateFunction(String^ opratoR)
+	{
+		operaTor = opratoR;
+
+		FirtsNumber = Double::Parse(ValueTextBox->Text);
+
+		ValueTextBox->Text = "0";
+	}
+
 	// PLUS-BUTTON //
 
 	private: System::Void Plus_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-
+		CalculateFunction("+");
 	}
 	
 	// MINUS-BUTTON //
 
 	private: System::Void Minus_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
-
+		CalculateFunction("-");
 	}
 
 	// MULTIPLY-BUTTON //
 
 	private: System::Void Multipy_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
-
+		CalculateFunction("*");
 	}
 		   
 	// DIVIDE-BUTTON //
 
 	private: System::Void Divide_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
-
+		CalculateFunction("/");
 	}
 		   
 	// PERCENTAGE-BUTTON //
@@ -575,7 +591,26 @@ namespace EasyNote {
 
 	private: System::Void Equal_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
+		SecondNumber = Double::Parse(ValueTextBox->Text);
 
+		if (operaTor->Equals("+"))
+		{
+			Answer = FirtsNumber + SecondNumber;
+		}
+		else if (operaTor->Equals("-"))
+		{
+			Answer = FirtsNumber - SecondNumber;
+		}
+		else if (operaTor->Equals("*"))
+		{
+			Answer = FirtsNumber * SecondNumber;
+		}
+		else if (operaTor->Equals("/"))
+		{
+			Answer = FirtsNumber / SecondNumber;
+		}
+
+		ValueTextBox->Text = Answer.ToString();
 	}
 };
 }
