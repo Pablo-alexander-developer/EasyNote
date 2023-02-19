@@ -41,13 +41,15 @@ namespace EasyNote {
 			}
 		}
 	private: System::Windows::Forms::TextBox^ ValueTextBox;
+	private: System::Windows::Forms::PictureBox^ Change;
 	protected:
 
 	protected:
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
 	private: System::Windows::Forms::PictureBox^ Zero;
 	private: System::Windows::Forms::PictureBox^ Comma;
-	private: System::Windows::Forms::PictureBox^ Percentage;
+	private: System::Windows::Forms::PictureBox^ Cclear;
+
 	private: System::Windows::Forms::PictureBox^ Equal;
 	private: System::Windows::Forms::PictureBox^ Divide;
 
@@ -98,10 +100,10 @@ namespace EasyNote {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(CalculatorForm::typeid));
 			this->ValueTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->Change = (gcnew System::Windows::Forms::PictureBox());
 			this->Zero = (gcnew System::Windows::Forms::PictureBox());
 			this->Comma = (gcnew System::Windows::Forms::PictureBox());
-			this->Percentage = (gcnew System::Windows::Forms::PictureBox());
+			this->Cclear = (gcnew System::Windows::Forms::PictureBox());
 			this->Equal = (gcnew System::Windows::Forms::PictureBox());
 			this->Divide = (gcnew System::Windows::Forms::PictureBox());
 			this->Minus = (gcnew System::Windows::Forms::PictureBox());
@@ -117,10 +119,10 @@ namespace EasyNote {
 			this->Nine = (gcnew System::Windows::Forms::PictureBox());
 			this->Eight = (gcnew System::Windows::Forms::PictureBox());
 			this->Seven = (gcnew System::Windows::Forms::PictureBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Change))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Zero))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Comma))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Percentage))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Cclear))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Equal))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Divide))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Minus))->BeginInit();
@@ -146,16 +148,18 @@ namespace EasyNote {
 			this->ValueTextBox->Size = System::Drawing::Size(359, 32);
 			this->ValueTextBox->TabIndex = 0;
 			this->ValueTextBox->Text = L"0";
+			this->ValueTextBox->TextChanged += gcnew System::EventHandler(this, &CalculatorForm::ValueTextBox_TextChanged);
 			// 
-			// pictureBox1
+			// Change
 			// 
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(21, 311);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(67, 68);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox1->TabIndex = 1;
-			this->pictureBox1->TabStop = false;
+			this->Change->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Change.Image")));
+			this->Change->Location = System::Drawing::Point(21, 311);
+			this->Change->Name = L"Change";
+			this->Change->Size = System::Drawing::Size(67, 68);
+			this->Change->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->Change->TabIndex = 1;
+			this->Change->TabStop = false;
+			this->Change->Click += gcnew System::EventHandler(this, &CalculatorForm::Change_Click);
 			// 
 			// Zero
 			// 
@@ -181,17 +185,17 @@ namespace EasyNote {
 			this->Comma->TabStop = false;
 			this->Comma->Click += gcnew System::EventHandler(this, &CalculatorForm::Comma_Click);
 			// 
-			// Percentage
+			// Cclear
 			// 
-			this->Percentage->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Percentage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Percentage.Image")));
-			this->Percentage->Location = System::Drawing::Point(240, 311);
-			this->Percentage->Name = L"Percentage";
-			this->Percentage->Size = System::Drawing::Size(67, 68);
-			this->Percentage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->Percentage->TabIndex = 4;
-			this->Percentage->TabStop = false;
-			this->Percentage->Click += gcnew System::EventHandler(this, &CalculatorForm::Percentage_Click);
+			this->Cclear->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->Cclear->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Cclear.Image")));
+			this->Cclear->Location = System::Drawing::Point(240, 311);
+			this->Cclear->Name = L"Cclear";
+			this->Cclear->Size = System::Drawing::Size(67, 68);
+			this->Cclear->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->Cclear->TabIndex = 4;
+			this->Cclear->TabStop = false;
+			this->Cclear->Click += gcnew System::EventHandler(this, &CalculatorForm::Cclear_Click);
 			// 
 			// Equal
 			// 
@@ -394,10 +398,10 @@ namespace EasyNote {
 			this->Controls->Add(this->Two);
 			this->Controls->Add(this->One);
 			this->Controls->Add(this->Equal);
-			this->Controls->Add(this->Percentage);
+			this->Controls->Add(this->Cclear);
 			this->Controls->Add(this->Comma);
 			this->Controls->Add(this->Zero);
-			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->Change);
 			this->Controls->Add(this->ValueTextBox);
 			this->Font = (gcnew System::Drawing::Font(L"Arial", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -407,10 +411,10 @@ namespace EasyNote {
 			this->MinimizeBox = false;
 			this->Name = L"CalculatorForm";
 			this->Text = L"Calculator EasyNote";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Change))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Zero))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Comma))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Percentage))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Cclear))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Equal))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Divide))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Minus))->EndInit();
@@ -523,8 +527,43 @@ namespace EasyNote {
 
 	private: System::Void Delete_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
+		if(ValueTextBox->Text->Length >0)
+		{
+			ValueTextBox->Text = ValueTextBox->Text->Remove(ValueTextBox->Text->Length - 1, 1);
+		}
+	}
+
+	// TEXT DEFAULT-BUTTON //
+
+	private: System::Void ValueTextBox_TextChanged(System::Object^ sender, System::EventArgs^ e) 
+	{
+		if (ValueTextBox->Text == "")
+		{
+			ValueTextBox->Text = "0";
+		}
+	}
+
+
+	// CCLEAR-BUTTON //
+			
+	private: System::Void Cclear_Click(System::Object^ sender, System::EventArgs^ e)
+	{
 		ValueTextBox->Clear();
 		ValueTextBox->Text = "0";
+	}
+
+	// CHANGE-BUTTON //
+
+	private: System::Void Change_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		if (ValueTextBox->Text->Contains("-"))
+		{
+			ValueTextBox->Text = ValueTextBox->Text->Remove(0, 1);
+		}
+		else 
+		{
+			ValueTextBox->Text = "-" + ValueTextBox->Text;
+		}
 	}
 
 	// COMMA-BUTTON //
@@ -580,13 +619,6 @@ namespace EasyNote {
 		CalculateFunction("/");
 	}
 		   
-	// PERCENTAGE-BUTTON //
-
-	private: System::Void Percentage_Click(System::Object^ sender, System::EventArgs^ e) 
-	{
-
-	}
-		   
 	// EQUAL-BUTTON //
 
 	private: System::Void Equal_Click(System::Object^ sender, System::EventArgs^ e) 
@@ -612,5 +644,6 @@ namespace EasyNote {
 
 		ValueTextBox->Text = Answer.ToString();
 	}
+
 };
 }
